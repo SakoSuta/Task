@@ -72,6 +72,7 @@ describe("All test for login", () => {
     expect(res.status).toEqual(200);
     expect(res.data).toBeInstanceOf(Object);
     expect(res.data).toHaveProperty("message");
+    expect(res.data).toHaveProperty("token");
   });
 
   test("login credentials error (email)", async () => {
