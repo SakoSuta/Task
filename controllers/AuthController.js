@@ -48,9 +48,17 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if(!email || !password){
+      return res.status(400).json({ error: 'Veuillez remplir tous les champs.' });
+    }
+
     const user = await prisma.user.findUnique({
       where: { email },
     });
+
+    if (!user) {
+      return res.status(401).json({ error: 'Identifiant Incorrect.' });
+    }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
