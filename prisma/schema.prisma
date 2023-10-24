@@ -28,6 +28,6 @@ model Task {
   body      String
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  completed Boolean
+  completed Boolean  @default(false)
   user      User      @relation(fields: [user_id], references: [id])
 }

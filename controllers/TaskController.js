@@ -2,27 +2,30 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // Contrôleur pour l'enregistrement d'un utilisateur
-const Create = async (req, res) => {
+const CreateTask = async (req, res) => {
+  const userData = req.user; 
+  console.log(userData);
     try {
-      const { email, password, name } = req.body;
-  
-      // Créez un objet de données avec les champs nécessaires
-      const userData = {
-        email,
-        password, // Vous devriez stocker le mot de passe de manière sécurisée, par exemple, en le hachant.
-        name,
+      const { body } = req.body;
+
+      if(!body) {
+        return res.status(400).json({ error: 'Vous devez fournir une description de la tâche.' });
+      }
+
+      const taskData = {
+        user_id: userData.userId, 
+        body
       };
-  
-      // Envoyez les données à la base de données
-      const newUser = await prisma.user.create({
-        data: userData,
+
+      const newTask = await prisma.task.create({
+        data: taskData,
       });
   
-      res.status(201).json({ message: 'Utilisateur créé avec succès.' });
+      res.status(201).json({ message: 'La Tash à étè créé avec succès.' });
     } catch (error) {
       console.error('Erreur d\'enregistrement:', error);
-      res.status(400).json({ error: 'Une erreur s\'est produite lors de l\'enregistrement.' });
+      res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'enregistrement.' });
     }
   };
 
-module.exports = { Create };
+module.exports = { CreateTask };
