@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -51,12 +52,17 @@ const login = async (req, res) => {
       where: { email },
     });
 
-    if (!user || user.password !== password) {
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
       return res.status(401).json({ error: 'Identifiant Incorrect.' });
     }
 
-    res.status(200).json({ message: 'Connexion réussie.' });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ message: 'Connexion réussie.', token });
   } catch (error) {
+    console.error('Erreur d\'enregistrement:', error);
     res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'authentification.' });
   }
 };
