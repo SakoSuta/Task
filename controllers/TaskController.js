@@ -1,7 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Contrôleur pour l'enregistrement d'un utilisateur
 const CreateTask = async (req, res) => {
   const userData = req.user; 
   console.log(userData);
