@@ -1,7 +1,6 @@
 const axios = require("axios");
-const fs = require('fs');
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.defaults.debug = true;
 
