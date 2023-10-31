@@ -22,9 +22,25 @@ const CreateTask = async (req, res) => {
   
       res.status(201).json({ message: 'La Tash à étè créé avec succès.' });
     } catch (error) {
-      console.error('Erreur d\'enregistrement:', error);
-      res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'enregistrement.' });
+      console.error('Erreur complete:', error);
+      res.status(500).json({ error: 'Une erreur s\'est produite lors de la Création de la task.' });
     }
   };
 
-module.exports = { CreateTask };
+const GetTasksUsers = async (req, res) => {
+  const userData = req.user;
+  try {
+    const tasks = await prisma.task.findMany({
+      where: {
+        user_id: userData.userId,
+      },
+    });
+
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error('Erreur complete:', error);
+    res.status(500).json({ error: 'Une erreur s\'est produite lors de la récupération des tasks.' });
+  }
+}
+
+module.exports = { CreateTask, GetTasksUsers };

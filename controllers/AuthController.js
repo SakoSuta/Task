@@ -39,7 +39,7 @@ const register = async (req, res) => {
   
       res.status(201).json({ message: 'Utilisateur créé avec succès.' });
     } catch (error) {
-      console.error('Erreur d\'enregistrement:', error);
+      console.error('Erreur complete:', error);
       res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'enregistrement.' });
     }
   };
@@ -66,11 +66,11 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Identifiant Incorrect.' });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
     res.status(200).json({ message: 'Connexion réussie.', token });
   } catch (error) {
-    console.error('Erreur d\'enregistrement:', error);
+    console.error('Erreur complete:', error);
     res.status(500).json({ error: 'Une erreur s\'est produite lors de l\'authentification.' });
   }
 };

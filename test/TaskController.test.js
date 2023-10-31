@@ -59,6 +59,22 @@ describe("All test for Tasks", () => {
       });
   });
 
+  describe('All tests for list all tasks of the logged user', () => {
+    it('list all tasks of the logged user', async () => {
+      
+      // console.log(token);
+
+      const response = await axios.get('/tasks', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(response.status).toBe(200);
+      expect(response.data).toBeInstanceOf(Array);
+    });
+  });
+
   describe('All test for update tasks', () => {
 
   });

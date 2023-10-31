@@ -5,9 +5,9 @@ const AuthenticateToken = require('../middleware/Auth');
 
 // Routes de gestion des tâches
 router.post('/create', AuthenticateToken, taskController.CreateTask);
-// router.get('/list', taskController.listTasks);
-// router.get('/filter', taskController.filterTasks);
-// router.put('/update/:taskId', taskController.updateTask);
-// router.delete('/delete/:taskId', taskController.deleteTask);
+router.get('/', AuthenticateToken, taskController.GetTasksUsers);
+// router.put('/update/:id', AuthenticateToken, taskController.updateTask);
+// router.patch('/update/:id', AuthenticateToken, taskController.updateTaskComplet);
+// router.delete('/delete/:id', AuthenticateToken, taskController.deleteTask);
 
 module.exports = router;
