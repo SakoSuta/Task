@@ -7,7 +7,7 @@ const AuthenticateToken = require('../middleware/Auth');
 router.post('/create', AuthenticateToken, taskController.CreateTask);
 router.get('/', AuthenticateToken, taskController.GetTasksUsers);
 router.put('/update/:id', AuthenticateToken, taskController.UpdateTask);
-// router.patch('/update/:id', AuthenticateToken, taskController.UpdateTaskComplet);
+router.patch('/update/:id', AuthenticateToken, taskController.UpdateTaskComplet);
 // router.delete('/delete/:id', AuthenticateToken, taskController.DeleteTask);
 
 module.exports = router;

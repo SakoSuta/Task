@@ -138,7 +138,60 @@ describe("All test for Tasks", () => {
   });
 
   describe('All test for update tasks complet', () => {
+    it('update tasks complet', async () => {
+      
+      // console.log(token);
 
+      const response = await axios.patch(`/tasks/update/${taskId}`, {
+        completed: true,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(response.status).toBe(200);
+      expect(response.data).toBeInstanceOf(Object);
+      expect(response.data).toHaveProperty("message");
+      expect(response.data).toHaveProperty("updatedTaskCompleted");
+    });
+
+    it('update tasks NO complet', async () => {
+      
+      // console.log(token);
+
+      const response = await axios.patch(`/tasks/update/${taskId}`, {
+        completed: false,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(response.status).toBe(200);
+      expect(response.data).toBeInstanceOf(Object);
+      expect(response.data).toHaveProperty("message");
+      expect(response.data).toHaveProperty("updatedTaskCompleted");
+    });
+
+    it('update tasks complete error (not found)', async () => {
+        
+      // console.log(token);
+
+      try {
+        const response = await axios.patch(`/tasks/update/0`, {
+          completed: true,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(404);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
   });
 
   describe('All test for delete tasks', () => {
