@@ -55,6 +55,34 @@ describe("All test for Tasks", () => {
           expect(e.response.data).toHaveProperty("error");
         }
       });
+      
+    it('User not connected', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(401);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+
+    it('User Token invalid', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}invalid`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(403);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
   });
 
   describe('All tests for list all tasks of the logged user', () => {
@@ -67,6 +95,34 @@ describe("All test for Tasks", () => {
 
       expect(response.status).toBe(200);
       expect(response.data).toBeInstanceOf(Array);
+    });
+      
+    it('User not connected', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(401);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+
+    it('User Token invalid', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}invalid`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(403);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
     });
   });
 
@@ -113,6 +169,34 @@ describe("All test for Tasks", () => {
         });
       }catch (e) {
         expect(e.response.status).toEqual(404);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+      
+    it('User not connected', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(401);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+
+    it('User Token invalid', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}invalid`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(403);
         expect(e.response.data).toBeInstanceOf(Object);
         expect(e.response.data).toHaveProperty("error");
       }
@@ -165,6 +249,34 @@ describe("All test for Tasks", () => {
         expect(e.response.data).toHaveProperty("error");
       }
     });
+      
+    it('User not connected', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(401);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+
+    it('User Token invalid', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}invalid`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(403);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
   });
 
   describe('All test for delete tasks', () => {
@@ -188,6 +300,34 @@ describe("All test for Tasks", () => {
         });
       }catch (e) {
         expect(e.response.status).toEqual(404);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+      
+    it('User not connected', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(401);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+
+    it('User Token invalid', async () => {
+      try {
+        const response = await axios.post('/tasks/create', {
+          body: 'Ma tâche',
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}invalid`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(403);
         expect(e.response.data).toBeInstanceOf(Object);
         expect(e.response.data).toHaveProperty("error");
       }
