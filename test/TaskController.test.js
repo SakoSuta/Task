@@ -23,9 +23,6 @@ describe("All test for Tasks", () => {
 
   describe('All test for create tasks', () => {
     it('create tasks', async () => {
-
-      // console.log(token);
-    
       const response = await axios.post('/tasks/create', {
         body: 'Ma tâche',
       }, {
@@ -44,9 +41,6 @@ describe("All test for Tasks", () => {
     });
 
     it('create tasks error (empty)', async () => {
-        
-        // console.log(token);
-
         try {
           const response = await axios.post('/tasks/create', {
             body: '',
@@ -65,9 +59,6 @@ describe("All test for Tasks", () => {
 
   describe('All tests for list all tasks of the logged user', () => {
     it('list all tasks of the logged user', async () => {
-      
-      // console.log(token);
-
       const response = await axios.get('/tasks', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,9 +72,6 @@ describe("All test for Tasks", () => {
 
   describe('All test for update tasks', () => {
     it('update tasks', async () => {
-      
-      // console.log(token);
-
       const response = await axios.put(`/tasks/update/${taskId}`, {
         body: 'Ma tâche Modifier',
       }, {
@@ -99,9 +87,6 @@ describe("All test for Tasks", () => {
     });
 
     it('update tasks error (empty)', async () => {
-        
-      // console.log(token);
-
       try {
         const response = await axios.put(`/tasks/update/${taskId}`, {
           body: '',
@@ -118,9 +103,6 @@ describe("All test for Tasks", () => {
     });
 
     it('update tasks error (not found)', async () => {
-        
-      // console.log(token);
-
       try {
         const response = await axios.put(`/tasks/update/0`, {
           body: 'Ma tâche Modifier',
@@ -139,9 +121,6 @@ describe("All test for Tasks", () => {
 
   describe('All test for update tasks complet', () => {
     it('update tasks complet', async () => {
-      
-      // console.log(token);
-
       const response = await axios.patch(`/tasks/update/${taskId}`, {
         completed: true,
       }, {
@@ -157,9 +136,6 @@ describe("All test for Tasks", () => {
     });
 
     it('update tasks NO complet', async () => {
-      
-      // console.log(token);
-
       const response = await axios.patch(`/tasks/update/${taskId}`, {
         completed: false,
       }, {
@@ -175,9 +151,6 @@ describe("All test for Tasks", () => {
     });
 
     it('update tasks complete error (not found)', async () => {
-        
-      // console.log(token);
-
       try {
         const response = await axios.patch(`/tasks/update/0`, {
           completed: true,
@@ -196,9 +169,6 @@ describe("All test for Tasks", () => {
 
   describe('All test for delete tasks', () => {
     it('delete tasks', async () => {
-      
-      // console.log(token);
-
       const response = await axios.delete(`/tasks/delete/${taskId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -210,9 +180,6 @@ describe("All test for Tasks", () => {
       expect(response.data).toHaveProperty("message");
     });
     it('delete tasks error (not found)', async () => {
-        
-      // console.log(token);
-
       try {
         const response = await axios.delete(`/tasks/delete/0`, {
           headers: {
