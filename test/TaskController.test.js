@@ -195,10 +195,35 @@ describe("All test for Tasks", () => {
   });
 
   describe('All test for delete tasks', () => {
+    it('delete tasks', async () => {
+      
+      // console.log(token);
 
-  });
+      const response = await axios.delete(`/tasks/delete/${taskId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  describe('All test for get tasks by ID User', () => {
+      expect(response.status).toBe(200);
+      expect(response.data).toBeInstanceOf(Object);
+      expect(response.data).toHaveProperty("message");
+    });
+    it('delete tasks error (not found)', async () => {
+        
+      // console.log(token);
 
+      try {
+        const response = await axios.delete(`/tasks/delete/0`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(404);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
   });
 });
