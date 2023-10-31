@@ -75,4 +75,16 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const DeleteUser = async (req, res) => {
+  const { email } = req.params;
+
+  await prisma.user.delete({
+    where: {
+      email: email,
+    },
+  });
+
+  res.status(200).json({ message: 'Utilisateur supprimé avec succès.' });
+};
+
+module.exports = { register, login, DeleteUser };

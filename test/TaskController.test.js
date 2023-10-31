@@ -1,15 +1,28 @@
 const axios = require("axios");
 
-axios.defaults.baseURL = process.env.API_URL;
+axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.defaults.debug = true;
 
 
 describe("All test for Tasks", () => {
 
+  const email = "mimidevel.sako@gmail.com"
+
+  beforeAll(async () => {
+    const res = await axios.post("/auth/register", {
+      email: email,
+      name: "UserTest",
+      password: "Azerty1234",
+      });
+
+      expect(res.status).toEqual(201);
+
+  });
+
   it('For Have Token', async () => {
     const response = await axios.post('/auth/login', {
-      email: 'mimidevel.me@gmail.com',
+      email: email,
       password: 'Azerty1234',
     });
 
@@ -17,9 +30,14 @@ describe("All test for Tasks", () => {
     expect(response.data).toHaveProperty('token');
     
     token = response.data.token;
-
   });
 
+  afterAll(async () => {
+    const res = await axios.get(`/auth/delete/${email}`);
+
+    expect(res.status).toEqual(200);
+  });
+  
   describe('All test for create tasks', () => {
     it('create tasks', async () => {
       const response = await axios.post('/tasks/create', {
