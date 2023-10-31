@@ -20,7 +20,7 @@ const CreateTask = async (req, res) => {
         data: taskData,
       });
   
-      res.status(201).json({ message: 'La Tash à étè créé avec succès.' });
+      res.status(201).json({ message: 'La Tash à étè créé avec succès.', newTask });
     } catch (error) {
       console.error('Erreur complete:', error);
       res.status(500).json({ error: 'Une erreur s\'est produite lors de la Création de la task.' });
@@ -43,4 +43,43 @@ const GetTasksUsers = async (req, res) => {
   }
 }
 
-module.exports = { CreateTask, GetTasksUsers };
+const UpdateTask = async (req, res) => {
+  const userData = req.user;
+  try {
+    const { id } = req.params;
+    const { body } = req.body;
+
+    if(!body) {
+      return res.status(400).json({ error: 'Vous devez fournir une description de la tâche.' });
+    }
+
+    const task = await prisma.task.findFirst({
+      where: {
+        id: parseInt(id),
+        user_id: userData.userId,
+      },
+    });
+
+    if(!task) {
+      return res.status(404).json({ error: 'La tâche n\'existe pas.' });
+    }
+
+    const taskData = {
+      body,
+    };
+
+    const updatedTask = await prisma.task.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: taskData,
+    });
+
+    res.status(200).json({ message: 'La tâche à été modifié avec succès.', updatedTask });
+  } catch (error) {
+    console.error('Erreur complete:', error);
+    res.status(500).json({ error: 'Une erreur s\'est produite lors de la modification de la tâche.' });
+  }
+}
+
+module.exports = { CreateTask, GetTasksUsers, UpdateTask };

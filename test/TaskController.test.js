@@ -37,6 +37,10 @@ describe("All test for Tasks", () => {
       expect(response.status).toBe(201);
       expect(response.data).toBeInstanceOf(Object);
       expect(response.data).toHaveProperty("message");
+      expect(response.data).toHaveProperty("newTask");
+      
+      const newTask = response.data.newTask;
+      taskId = newTask.id;
     });
 
     it('create tasks error (empty)', async () => {
@@ -76,7 +80,61 @@ describe("All test for Tasks", () => {
   });
 
   describe('All test for update tasks', () => {
+    it('update tasks', async () => {
+      
+      // console.log(token);
 
+      const response = await axios.put(`/tasks/update/${taskId}`, {
+        body: 'Ma tâche Modifier',
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      expect(response.status).toBe(200);
+      expect(response.data).toBeInstanceOf(Object);
+      expect(response.data).toHaveProperty("message");
+      expect(response.data).toHaveProperty("updatedTask");
+    });
+
+    it('update tasks error (empty)', async () => {
+        
+      // console.log(token);
+
+      try {
+        const response = await axios.put(`/tasks/update/${taskId}`, {
+          body: '',
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(400);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
+
+    it('update tasks error (not found)', async () => {
+        
+      // console.log(token);
+
+      try {
+        const response = await axios.put(`/tasks/update/0`, {
+          body: 'Ma tâche Modifier',
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }catch (e) {
+        expect(e.response.status).toEqual(404);
+        expect(e.response.data).toBeInstanceOf(Object);
+        expect(e.response.data).toHaveProperty("error");
+      }
+    });
   });
 
   describe('All test for update tasks complet', () => {
